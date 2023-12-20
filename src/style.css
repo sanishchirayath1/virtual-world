@@ -1,0 +1,19 @@
+body {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: black;
+  text-align: center;
+}
+
+h1 {
+  color: white;
+}
+
+#myCanvas {
+  background-color: #2a5;
+}
