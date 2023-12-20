@@ -8,6 +8,16 @@ const addPointButton = document.getElementById(
 const addRandomSegmentButton = document.getElementById(
   "addRandomSegmentButton"
 )! as HTMLButtonElement;
+const removeSegmentButton = document.getElementById(
+  "removeSegmentButton"
+)! as HTMLButtonElement;
+const removePointButton = document.getElementById(
+  "removePointButton"
+)! as HTMLButtonElement;
+
+const clearButton = document.getElementById(
+  "clearButton"
+)! as HTMLButtonElement;
 myCanvas.width = 600;
 myCanvas.height = 600;
 
@@ -39,8 +49,47 @@ function addRandomSegment() {
   const segment = new Segment(p1, p2);
   let success = graph.tryAddSegment(segment);
   console.log(success);
+  ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
   graph.draw(ctx);
+}
+
+function removeSegment() {
+  const segments = graph.segments;
+
+  if (segments.length === 0) {
+    console.log("No segments to remove");
+    return;
+  }
+
+  const segment = segments[Math.floor(Math.random() * segments.length)];
+  console.log(segment);
+  graph.removeSegment(segment);
+  ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+  graph.draw(ctx);
+}
+
+function removePoint() {
+  const points = graph.points;
+
+  if (points.length === 0) {
+    console.log("No points to remove");
+    return;
+  }
+
+  const point = points[Math.floor(Math.random() * points.length)];
+  console.log(point);
+  graph.removePoint(point);
+  ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+  graph.draw(ctx);
+}
+
+function clear() {
+  graph.dispose();
+  ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 }
 
 addPointButton.addEventListener("click", addRandomPoint);
 addRandomSegmentButton.addEventListener("click", addRandomSegment);
+removeSegmentButton.addEventListener("click", removeSegment);
+removePointButton.addEventListener("click", removePoint);
+clearButton.addEventListener("click", clear);

@@ -9,13 +9,14 @@ class Segment {
   }
 
   equals(segment: Segment) {
-    return (
-      (this.p1.equals(segment.p1) && this.p2.equals(segment.p2)) ||
-      (this.p1.equals(segment.p2) && this.p2.equals(segment.p1))
-    );
+    return this.includes(segment.p1) && this.includes(segment.p2);
   }
 
-  draw(ctx: CanvasRenderingContext2D, width = 1, color = "black") {
+  includes(point: Point) {
+    return this.p1.equals(point) || this.p2.equals(point);
+  }
+
+  draw(ctx: CanvasRenderingContext2D, width = 2, color = "black") {
     ctx.beginPath();
     ctx.lineWidth = width;
     ctx.strokeStyle = color;
