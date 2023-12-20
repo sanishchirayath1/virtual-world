@@ -1,5 +1,5 @@
 import "./style.css";
-import { Graph, Point, Segment } from "./js/math";
+import { Graph, Point, Segment } from "@/js/index";
 
 const myCanvas = document.getElementById("myCanvas")! as HTMLCanvasElement;
 myCanvas.width = 600;

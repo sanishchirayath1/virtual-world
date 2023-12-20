@@ -1,4 +1,4 @@
-import { Point, Segment } from "";
+import { Point, Segment } from "@/js";
 
 class Graph {
   points: Point[];
