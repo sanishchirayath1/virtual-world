@@ -17,3 +17,18 @@ h1 {
 #myCanvas {
   background-color: #2a5;
 }
+
+#controls {
+  display: flex;
+  padding: 20px;
+}
+
+button {
+  margin-right: 30px;
+  padding: 10px 20px;
+  border: none;
+  background-color: blueviolet;
+  color: white;
+  font-size: 16px;
+  border-radius: 4px;
+}
