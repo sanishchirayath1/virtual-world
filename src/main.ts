@@ -1,5 +1,5 @@
 import "./style.css";
-import { Graph, Point, Segment } from "@/js";
+import { Graph, Point, Segment, GraphEditor } from "@/js";
 
 const myCanvas = document.getElementById("myCanvas")! as HTMLCanvasElement;
 myCanvas.width = 600;
@@ -17,4 +17,12 @@ const s3 = new Segment(p3, p4);
 const s4 = new Segment(p4, p1);
 
 const graph = new Graph([p1, p2, p3, p4], [s1, s2, s3, s4]);
-graph.draw(ctx);
+const graphEditor = new GraphEditor(myCanvas, graph);
+
+animate();
+
+function animate() {
+  ctx.clearRect(0, 0, myCanvas.width, myCanvas.height);
+  graphEditor.display();
+  requestAnimationFrame(animate);
+}
