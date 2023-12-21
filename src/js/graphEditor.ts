@@ -1,7 +1,8 @@
-import { Graph, Point, Segment, getNearestPoint } from "@/js";
+import { Graph, Point, Segment, getNearestPoint, Viewport } from "@/js";
 
 class GraphEditor {
   private canvas: HTMLCanvasElement;
+  private viewport: Viewport;
   private graph: Graph;
   private ctx: CanvasRenderingContext2D;
   private selected: Point | null = null;
@@ -9,10 +10,11 @@ class GraphEditor {
   private dragging: boolean = false;
   private mouse: Point | null = null;
 
-  constructor(canvas: HTMLCanvasElement, graph: Graph) {
-    this.canvas = canvas;
+  constructor(viewport: Viewport, graph: Graph) {
+    this.viewport = viewport;
+    this.canvas = viewport.canvas;
     this.graph = graph;
-    this.ctx = canvas.getContext("2d")!;
+    this.ctx = this.canvas.getContext("2d")!;
     this.addEventListeners();
   }
 
@@ -26,8 +28,12 @@ class GraphEditor {
   }
 
   private handleMousemove(e: MouseEvent) {
-    this.mouse = new Point(e.offsetX, e.offsetY);
-    this.hovered = getNearestPoint(this.mouse, this.graph.points, 10);
+    this.mouse = this.viewport.getMouse(e, true);
+    this.hovered = getNearestPoint(
+      this.mouse,
+      this.graph.points,
+      10 * this.viewport.zoom
+    );
     if (this.dragging && this.selected) {
       this.selected.x = this.mouse.x;
       this.selected.y = this.mouse.y;
@@ -42,7 +48,7 @@ class GraphEditor {
         this.removePoint(this.hovered);
       }
     } else if (e.button === 0) {
-      const point = new Point(e.offsetX, e.offsetY);
+      const point = this.viewport.getMouse(e);
       if (this.hovered) {
         this.select(this.hovered);
         this.dragging = true;
