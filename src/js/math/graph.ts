@@ -8,7 +8,7 @@ class Graph {
     this.segments = segments;
   }
 
-  private addPoint(point: Point) {
+  addPoint(point: Point) {
     this.points.push(point);
   }
 
@@ -16,14 +16,14 @@ class Graph {
     return this.points.some((p) => p.equals(point));
   }
 
-  tryAddPoint(point: Point) {
-    if (!this.containsPoint(point)) {
-      this.addPoint(point);
-      return true;
-    }
+  // tryAddPoint(point: Point) {
+  //   if (!this.containsPoint(point)) {
+  //     this.addPoint(point);
+  //     return true;
+  //   }
 
-    return false;
-  }
+  //   return false;
+  // }
 
   removePoint(point: Point) {
     const segments = this.segments.filter((s) => s.includes(point));
