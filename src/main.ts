@@ -1,22 +1,16 @@
 import "./style.css";
-import { Graph, Point, Segment, GraphEditor, Viewport } from "@/js";
+import { Graph, GraphEditor, Viewport } from "@/js";
 
 const myCanvas = document.getElementById("myCanvas")! as HTMLCanvasElement;
+const dispostBtn = document.getElementById("dispose")! as HTMLButtonElement;
+const saveBtn = document.getElementById("save")! as HTMLButtonElement;
 myCanvas.width = 600;
 myCanvas.height = 600;
-
-let ctx = myCanvas.getContext("2d")!;
-const p1 = new Point(100, 100);
-const p2 = new Point(500, 200);
-const p3 = new Point(300, 100);
-const p4 = new Point(400, 400);
-
-const s1 = new Segment(p1, p2);
-const s2 = new Segment(p2, p3);
-const s3 = new Segment(p3, p4);
-const s4 = new Segment(p4, p1);
-
-const graph = new Graph([p1, p2, p3, p4], [s1, s2, s3, s4]);
+const graphStr = localStorage.getItem("graph");
+const graphInfo = graphStr ? JSON.parse(graphStr) : null;
+const graph = graphInfo
+  ? Graph.load(graphInfo)
+  : new Graph();
 const viewport = new Viewport(myCanvas);
 const graphEditor = new GraphEditor(viewport, graph);
 
@@ -27,3 +21,12 @@ function animate() {
   graphEditor.display();
   requestAnimationFrame(animate);
 }
+
+dispostBtn.addEventListener("click", () => {
+  graphEditor.dispose();
+  localStorage.removeItem("graph");
+});
+
+saveBtn.addEventListener("click", () => {
+  localStorage.setItem("graph", JSON.stringify(graph));
+});

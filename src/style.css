@@ -25,10 +25,16 @@ h1 {
 
 button {
   margin-right: 30px;
-  padding: 10px 20px;
   border: none;
-  background-color: blueviolet;
   color: white;
-  font-size: 16px;
+  background-color: transparent;
+  font-size: 20px;
   border-radius: 4px;
+  transition: all 0.2s ease-in-out;
+  transform-origin: center;
+}
+
+button:hover {
+  cursor: pointer;
+  transform: scale(1.5);
 }
